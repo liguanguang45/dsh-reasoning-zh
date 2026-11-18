@@ -1,0 +1,26 @@
+# 干跑用：开启兜底翻译层的 overlay。
+#
+# 与 dev.cordis.yml **二选一**（两者都挂会注册同名提示词段而冲突）。
+# 翻译调用默认复用主模型 deepseek-flash（你的凭据里确定的可用模型）。
+#
+# cjkThreshold: 0.3 → 已经是中文的思考块会被跳过翻译（实测日志：
+#   `[reasoning-zh] reasoning 块 0 采样判定（汉字占比 96%），跳过翻译`），
+# 所以只有真的漂回英文的块才付一次模型调用。
+#
+#   dsh --profile headless --patch C:/path/to/dsh-reasoning-zh/mount/dev-with-translate.cordis.yml \
+#                            --patch C:/path/to/dsh-reasoning-zh/mount/dev-with-thinking.cordis.yml \
+#                            "your task"
+#
+# 关闭翻译层的对照实验就用 dev.cordis.yml（translate: false）。
+- insert:
+    - id: reasoning-zh-translate
+      name: 'file:///C:/path/to/dsh-reasoning-zh/lib/index.js'
+      config:
+        steering: both
+        remindOn: first
+        steerAnswer: true
+        translate: true
+        cjkThreshold: 0.3
+        translateProvider: deepseek-official
+        translateModel: deepseek-flash
+        verbose: true

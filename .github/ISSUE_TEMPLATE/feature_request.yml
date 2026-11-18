@@ -1,0 +1,27 @@
+name: 功能请求
+description: 提出改进或新功能
+title: "[feature] "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: 想解决的问题
+      description: 当前哪里不方便，或者什么场景没有被覆盖
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 建议方案
+      description: 你希望插件怎么表现；如果能给出配置字段或实现思路更好
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: 考虑过的替代方案
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: 范围确认
+      options:
+        - label: 这个需求可以在不引入运行时依赖的前提下实现

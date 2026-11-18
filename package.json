@@ -1,0 +1,94 @@
+{
+  "name": "dsh-reasoning-zh",
+  "version": "0.4.0",
+  "description": "DeepSeek Harness 插件：让 Agent 的思考过程用简体中文（提示词引导 + 每轮重申 + 可选翻译兜底）。默认不调用额外模型，翻译层需显式开启。",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liguanguang45/dsh-reasoning-zh.git"
+  },
+  "homepage": "https://github.com/liguanguang45/dsh-reasoning-zh#readme",
+  "bugs": {
+    "url": "https://github.com/liguanguang45/dsh-reasoning-zh/issues"
+  },
+  "author": "liguanguang45",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": {
+      "default": "./lib/index.js"
+    },
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib/index.js",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "icon.svg",
+    "LICENSE",
+    "scripts",
+    "tools/inspect-session.mjs",
+    "README.md",
+    "INSTALL.md",
+    "install.mjs",
+    "install.bat",
+    "install.sh"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "scripts": {
+    "test": "node test/run-all.mjs",
+    "test:rewrite": "node test/rewrite.test.mjs",
+    "test:install": "node test/install.test.mjs",
+    "inspect": "node tools/inspect-session.mjs",
+    "sync:desktop": "node scripts/install-into-profile.mjs",
+    "verify:desktop": "node scripts/install-into-profile.mjs --verify",
+    "config:desktop": "node scripts/install-into-profile.mjs --print-config"
+  },
+  "engines": {
+    "node": ">=22.19.0",
+    "dsh": ">=0.2.2-rc.3"
+  },
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "dsh-plugin",
+    "cordis",
+    "reasoning",
+    "chinese",
+    "deepseek",
+    "zh-cn",
+    "simplified-chinese"
+  ],
+  "license": "MIT",
+  "dependencies": {},
+  "peerDependencies": {
+    "@deepseek-ai/cordis": ">=4.0.2",
+    "@deepseek-ai/dsh-agent": ">=0.2.2-rc.3",
+    "@deepseek-ai/dsh-llm": ">=0.2.2-rc.3",
+    "@deepseek-ai/dsh-system-prompt": ">=0.2.2-rc.3",
+    "schemastery": ">=3.18.2"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/cordis": {
+      "optional": true
+    },
+    "@deepseek-ai/dsh-agent": {
+      "optional": true
+    },
+    "@deepseek-ai/dsh-llm": {
+      "optional": true
+    },
+    "@deepseek-ai/dsh-system-prompt": {
+      "optional": true
+    },
+    "schemastery": {
+      "optional": true
+    }
+  }
+}

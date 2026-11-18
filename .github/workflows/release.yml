@@ -1,0 +1,30 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verify tag matches package version
+        run: |
+          node -e "const v=require('./package.json').version; const t=process.env.GITHUB_REF_NAME.replace(/^v/,''); if (v!==t) { console.error('tag '+t+' != package '+v); process.exit(1) }"
+      - name: Build share archive
+        run: |
+          node scripts/pack-share.mjs
+          cd dist
+          zip -r "dsh-reasoning-zh-${GITHUB_REF_NAME#v}.zip" "dsh-reasoning-zh-${GITHUB_REF_NAME#v}"
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/dsh-reasoning-zh-*.zip
+          generate_release_notes: true

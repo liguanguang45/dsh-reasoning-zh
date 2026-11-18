@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Reasoning in Simplified Chinese",
+    "description": "Steers the agent's reasoning, planning and tool rationale toward Simplified Chinese. Turning on the translation fallback adds one auxiliary model call per reasoning block that drifts back to English; translated reasoning is written to the session log, and the full reasoning text is sent to the configured translate provider. Turning the plugin off restores the model's original reasoning language."
+  }
+}

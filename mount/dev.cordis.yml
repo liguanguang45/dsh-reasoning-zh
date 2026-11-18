@@ -1,0 +1,26 @@
+# 开发联调用的 overlay：不装包、不改 profile，直接以绝对路径挂载源码。
+#
+#   dsh web --patch C:/path/to/dsh-reasoning-zh/mount/dev.cordis.yml
+#
+# 说明：cordis loader 对不以 "." 开头的 name 直接走 `import(name)`，
+# 所以这里必须用 file:// URL（裸 Windows 路径 F:/... 会被当成包名解析而失败）。
+# 若你的 DSH 走了 internal loader，也可以改用下面注释掉的包名形式，
+# 前提是已经在该 profile 里 `pnpm add link:C:/path/to/dsh-reasoning-zh`。
+- insert:
+    - id: reasoning-zh-dev
+      name: 'file:///C:/path/to/dsh-reasoning-zh/lib/index.js'
+      config:
+        steering: both
+        remindOn: first
+        steerAnswer: true
+        # 联调时建议先只开引导层，确认思考变中文后再打开翻译层
+        translate: false
+        verbose: true
+
+# 打开翻译层时把上面那段换成：
+#      config:
+#        steering: both
+#        translate: true
+#        translateProvider: deepseek-official
+#        translateModel: deepseek-chat
+#        verbose: true

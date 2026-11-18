@@ -1,0 +1,70 @@
+name: Bug report
+description: 报告插件行为异常（请先读 README 的安装与常见问题）
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        请不要粘贴完整 reasoning 原文、API key、私有路径或会话日志原文。
+        敏感内容用 `<redacted>` 替换；安全漏洞请走私密渠道（见 SECURITY.md）。
+  - type: input
+    id: dsh-version
+    attributes:
+      label: DSH 版本
+      placeholder: "0.2.2-rc.3"
+    validations:
+      required: true
+  - type: input
+    id: plugin-version
+    attributes:
+      label: 插件版本
+      placeholder: "0.4.0"
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: 操作系统
+      options:
+        - Windows
+        - macOS
+        - Linux
+    validations:
+      required: true
+  - type: input
+    id: node-version
+    attributes:
+      label: Node 版本
+      placeholder: "22.19.0"
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: 现象与复现步骤
+      description: 实际发生了什么、期望什么、怎样复现
+      placeholder: |
+        1. 安装方式（install.mjs / patch / link）
+        2. 配置里是否开了 translate
+        3. 复现步骤
+        4. 实际结果
+    validations:
+      required: true
+  - type: textarea
+    id: status
+    attributes:
+      label: /reasoning-zh 输出
+      render: text
+  - type: textarea
+    id: logs
+    attributes:
+      label: 相关日志（已脱敏）
+      render: text
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: 确认
+      options:
+        - label: 我已完全退出并重新打开 DSH
+          required: true
+        - label: 我已移除路径、密钥和完整 reasoning
+          required: true

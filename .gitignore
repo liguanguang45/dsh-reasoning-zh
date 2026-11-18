@@ -1,0 +1,9 @@
+node_modules/
+*.log
+*.zip
+*.tgz
+dist/
+*.stats.json
+.verify*/
+.DS_Store
+Thumbs.db

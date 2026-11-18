@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 安装与常见问题
+    url: https://github.com/YOUR_GITHUB_USER/dsh-reasoning-zh#安装
+    about: 先看 README 的安装、配置与“常见看起来没生效”
+  - name: 安全漏洞
+    url: https://github.com/YOUR_GITHUB_USER/dsh-reasoning-zh/security/policy
+    about: 不要开公开 Issue，按 SECURITY.md 私密报告

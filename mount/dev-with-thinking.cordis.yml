@@ -1,0 +1,14 @@
+# 让干跑也产生思考块：dsh-base 默认不设 reasoningEffort，deepseek-flash 就不吐 reasoning。
+#
+# 注意：id 定向的 config 覆盖**不会**与 bundle 内原行的 config 合并（bundle 是 cordis:include，
+# 跨层不合并），所以 provider/model 必须一并写全，否则报 `$.provider missing required value`。
+#
+# 用法（与 dev.cordis.yml 一起传，--patch 可重复）：
+#   dsh --profile headless --patch C:/path/to/dsh-reasoning-zh/mount/dev.cordis.yml \
+#                            --patch C:/path/to/dsh-reasoning-zh/mount/dev-with-thinking.cordis.yml \
+#                            "your task"
+- id: agent-default-model
+  config:
+    provider: deepseek-official
+    model: deepseek-flash
+    reasoningEffort: high

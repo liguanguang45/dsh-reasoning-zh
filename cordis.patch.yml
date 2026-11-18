@@ -1,0 +1,45 @@
+# dsh-reasoning-zh 自带的挂载行。
+# 当本包被列进 profile 的 package.json → dsh.profile.bundles 时，
+# 这一层 patch 会被自动叠加，无需手工编辑 profile 的 cordis.patch.yml。
+- insert:
+    - id: reasoning-zh
+      name: dsh-reasoning-zh
+      config:
+        # off | system-section | first-step-reminder | both
+        steering: both
+        # first | every | off —— 每个 turn 的哪些步骤重申语言指令
+        remindOn: first
+        # 只控制「最终回答」的语言；翻译层永远不碰最终回答
+        steerAnswer: true
+        # 兜底翻译层。默认关闭：只开 ①② 时零额外模型调用，也不把 reasoning 发给任何翻译服务。
+        # 显式改成 true 后，每个漂回英文的 reasoning 块会调用一次翻译模型；
+        # 完整 reasoning（可能含源码、路径、工具返回内容）会发给 translateProvider。
+        translate: false
+        translateProvider: deepseek-official
+        translateModel: deepseek-chat
+        translateThinkingOff: false
+        # 汉字占比达到该值即视为「已是中文」，整块跳过翻译（0 = 从不跳过）
+        # 实测：不加这道闸会出现「中文翻中文」的 218 -> 218 字符纯浪费
+        cjkThreshold: 0.3
+        maxCharsPerBlock: 20000
+        timeoutMs: 30000
+        verbose: false
+        # 诊断落盘（GUI 里宿主 stderr 看不见，这是事后查日志的入口）；空 = 不落盘
+        verboseFile: ''
+        verboseFileMaxBytes: 1000000
+        # ── 以下为 #1/#2/#3 优化项，默认值即推荐值，写出来是为了可发现 ──
+        # 翻译范围：main = 只翻主会话，子代理/工作流的思考直通（省成本）；all = 都翻
+        translateScope: main
+        # 长思考分片并发：累计超过 chunkThreshold 才分片，片长落在 [minChunkChars, maxChunkChars]
+        chunkThreshold: 1000
+        minChunkChars: 200
+        maxChunkChars: 800
+        # 某片译完就立即作为 delta 下发（译文流式）；false = 到块尾一次性下发
+        streamTranslated: true
+        # 熔断：连续 breakerFailures 次失败后冷却 breakerCooldownMs 毫秒（0 = 不熔断）
+        breakerFailures: 3
+        breakerCooldownMs: 300000
+        # 同时进行的翻译调用上限（0 = 不限）；长块分片时避免一次并发十几片触发限流
+        maxConcurrency: 4
+        # 单片的额外重试次数（0 = 不重试）；用户取消不重试
+        retry: 0

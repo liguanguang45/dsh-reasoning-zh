@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "思考过程用简体中文",
+    "description": "引导 Agent 的 reasoning、规划与工具理由使用简体中文；开启翻译兜底后，思考漂回英文时会额外调用一次翻译模型。译文会写入会话日志，完整 reasoning 会发给配置的 translateProvider。关闭插件后恢复模型原本的思考语言。"
+  }
+}

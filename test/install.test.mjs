@@ -6,7 +6,7 @@ import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
-import { join } from 'node:path'
+import { join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 import {
@@ -63,7 +63,7 @@ function makeProfile(dir) {
 }
 
 test('路径解析：DSH_HOME 优先，profile 名拒绝路径分隔符', () => {
-  assert.equal(resolveHome({ DSH_HOME: 'F:/tmp/home' }, 'C:/Users/x'), join('F:/tmp/home'))
+  assert.equal(resolveHome({ DSH_HOME: 'F:/tmp/home' }, 'C:/Users/x'), resolve('F:/tmp/home'))
   assert.equal(resolveHome({}, 'C:/Users/x'), join('C:/Users/x', '.dsh'))
   assert.equal(resolveProfileDir('F:/h', 'desktop'), join('F:/h', 'profiles', 'desktop'))
   assert.throws(() => resolveProfileDir('F:/h', ''), /profile 名不合法/)
